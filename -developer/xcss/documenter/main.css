@@ -43,6 +43,10 @@ body
         color: brown;
 }
 
+.ECMAstandard {
+        color: blue;
+}
+
 .dom_api
 {
         color: purple;

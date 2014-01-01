@@ -1,42 +1,56 @@
-/*jslint browser: true, indent: 8, brackets: false */
+/*jslint browser: true, indent: 8, nomen: true */
 /*global DATA, console */
 
-/*
- * Comment alias:
- * BRN = BEFORE REFACTORING NOTICE!
+/* ATTENTION!
+ * This is not your typical API documentation.
+ * This is a prototype code documentation for maintainers.
  */
+
+/* ABSTRACT
+<img src="$assets/img/documenter/abstract.gif" />
+ */
+
+var x12=10;
+do {
+        x12++;
+} while(x12<11)
+
+/* JSON DEPENDENCY CHECK */
 (function () {
+        'use strict';
         var msg = "JSON data is missing. ";
         msg    += "Hint: did you include the JSON file after the script?";
         if (DATA.documenter === undefined) {
                 throw new Error(msg);
         }
 }());
+
+/* DOCUMENTER GLOBAL NAMESPACE: Docm */
 var Docm         = {};
 Docm.parse       = {};
-Docm.Data        = DATA.documenter;
+Docm.Data        = DATA.documenter; //JSON DATA
+
+/* FUNCTION Docm.prependSpan
+ * TAKES IN JSON DATA.
+ * RETURNS OPENING SPAN TAG:
+        &#60;span class="[class1 class2 ...]" &#62;
+ */
 Docm.prependSpan = function (data) {
         'use strict';
-        var D, i, len, classes, span_start;
+        var D, classes, span_start;
         D = data;
-        classes = '';
         if (D.classes !== undefined) {
                 D = D.classes;
         }
-        len = D.length;
-        // Get all classes
-        for (i = 0; i < len; i = i + 1) {
-                if (classes === '') {
-                        classes += D[i];
-                } else {
-                        classes += ' ';
-                        classes += D[i];
-                }
-        }
+        classes = D;
         span_start = '<span class="' + classes + '">';
         return span_start;
 };
 
+/* FUNCTION Docm.prependSpan
+ * RETURNS CLOSING SPAN TAG:
+        &#60;/span &#62;
+ */
 Docm.appendSpan = function () {
         'use strict';
         var span_end;
@@ -44,6 +58,12 @@ Docm.appendSpan = function () {
         return span_end;
 };
 
+/* FUNCTION Docm.addSpan
+ * TAKES IN JSON DATA AND STRING TO PROCESS.
+ * ADDS OPENING SPAN AND CLOSES IT IF IT CAN.
+ * IF IT CAN'T CLOSE THE SPAN, THEN IT LETS THE CALLER KNOW
+ * WITH TOKENS. CALLER WILL HANDLE IT FROM THERE.
+ */
 Docm.addSpan = function (D, val) {
         'use strict';
         var output, end_token, qend_token, is_string;
@@ -51,7 +71,7 @@ Docm.addSpan = function (D, val) {
         end_token  = false;
         qend_token = false;
         is_string  = false;
-        if (Array.isArray(D[val])) {
+        if (typeof D[val] === 'string') {
                 output +=
                         Docm.prependSpan(D[val])
                         + val
@@ -77,24 +97,10 @@ Docm.addSpan = function (D, val) {
         };
 };
 
-/*
- * This parser has one intentional design weakness.
- * It can't parse html tags within comments.
- * 
- * The reason is very simple. We want to be able to put image tags
- * there :-)
- * 
- * If you don't want that, then feel free to customize this to your liking.
- */
-
-/*
- * Don't bother with the comments. These comments are for me at the moment.
- * I will make better comments, tutorial and documentation when I have
- * conceptualized this procedure in more abstract from... 
- * Edit:
- * I guess I have to 
- * use pictures... I have no idea how to explain the procedure with comments...
- * Edit... I have no fucking clue how to comment for others!!!!
+/* FUNCTION Docm.parse.code
+ * TAKES IN CODE TYPE AND THE CODE STRING.
+ * ITERATES THROUGH THE CODE ONCE AND TRANSFORMS IT INTO
+ * HTML CODE SEGMENT.
  */
 Docm.parse.code = function (type, code) {
         'use strict';
@@ -108,10 +114,9 @@ Docm.parse.code = function (type, code) {
                 throw new Error("Docm.appendSpan() is missing");
         }
         var i, j, len,
-                _char, buffer, buffer_old, cache,
+                charcter, buffer, buffer_old, cache,
                 end_token, qend_token, html_comment, is_string,
                 output,
-                outpBuffer, outpChar, escape,
                 D;
         D            = Docm.Data[type];
         /* .trim() in my mind is supposed to be standard to javascript api.
@@ -126,7 +131,7 @@ Docm.parse.code = function (type, code) {
         // Append buffer to output when token is found.
         end_token    = false;
         // q was thought as "quick" as in ending quickly... I don't know...
-        // Write buffer _minus_ _char to output when qtoken is found.
+        // Write buffer _minus_ charcter to output when qtoken is found.
         // Note that qtoken is always one character and not more.
         qend_token   = false;
         /* To take full advantage of html parcing, we want pictures.
@@ -138,7 +143,7 @@ Docm.parse.code = function (type, code) {
         i            = 0;
         /* Regular expressions will be chaced */
         cache        = [];
-        function closeSpan (quick) {
+        function closeSpan(quick) {
                 if (quick) {
                         output += buffer_old;
                         output += Docm.appendSpan();
@@ -149,12 +154,12 @@ Docm.parse.code = function (type, code) {
                         output += Docm.appendSpan();
                         end_token = false;
                 }
-                if (_char === '\n') {
+                if (charcter === '\n') {
                         output += '<br />';
                 }
                 buffer     = '';
         }
-        function outpBuffer () {
+        function outpBuffer() {
                 var tmpOut;
                 tmpOut     = Docm.addSpan(D, buffer);
                 output    += tmpOut.output;
@@ -163,48 +168,64 @@ Docm.parse.code = function (type, code) {
                 is_string  = tmpOut.is_string;
                 buffer     = '';
         }
-        function outpChar () {
+        function outpChar() {
                 var tmpOut;
                 // Handle character
                 j = i;
                 // Check if neighbor characters are also valid
-                while (D[_char] !== undefined) {
+                while (D[charcter] !== undefined) {
                         if (j <= len) {
                                 j = j + 1;
-                                _char = code.substring(i, j);
+                                charcter = code.substring(i, j);
                         } else {
                                 break;
                         }
                 }
-                // Remove extra caracter that makes _char invalid
+                // Remove extra caracter that makes charcter invalid
                 j = j - 1;
-                _char = code.substring(i, j);
+                charcter = code.substring(i, j);
                 // To correct the offset of ( i = i + 1 ) at the bottom
                 j = j - 1;
                 // Roll i forward to j.
                 i = j;
                 output    += buffer_old;
-                tmpOut     = Docm.addSpan(D, _char);
+                tmpOut     = Docm.addSpan(D, charcter);
                 output    += tmpOut.output;
                 end_token  = tmpOut.end_token;
                 qend_token = tmpOut.qend_token;
                 is_string  = tmpOut.is_string;
                 buffer  = '';
         }
-        function escape () {
+        function escape() {
                 i          = i + 1;
-                _char      = code.charAt(i);
+                charcter      = code.charAt(i);
                 buffer_old = buffer;
-                buffer    += _char;
+                buffer    += charcter;
                 output    += buffer;
                 buffer     = '';
         }
+        function jmp_reset() {
+                i      += buffer.length;
+                output += buffer;
+                buffer  = '';
+                charcter   = '';
+        }
         // Iterate through the code once
         while (i < len) {
-                _char      = code.charAt(i);
+                charcter   = code.charAt(i);
                 buffer_old = buffer;
-                buffer    += _char;
-                switch (_char) {
+                buffer    += charcter;
+                if (is_string === false) {
+                        switch (buffer) {
+                        case '_nextValid':
+                                jmp_reset();
+                                break;
+                        case '_ignore':
+                                jmp_reset();
+                                break;
+                        }  
+                } 
+                switch (charcter) {
                 case '\\':
                         // Escape
                         escape();
@@ -272,29 +293,29 @@ Docm.parse.code = function (type, code) {
                 if (end_token !== false && buffer.indexOf(end_token) !== -1) {
                         // Append closin span
                         closeSpan(false);
-                } else if (qend_token !== false && qend_token[_char] !== undefined) {
+                } else if (qend_token !== false && qend_token[charcter] !== undefined) {
                         closeSpan(true);
                 } else if (end_token === false && D[buffer] !== undefined && buffer.length > 1) {
                         // Handle buffer
-                        if (D.nextValid[buffer] === undefined) {
+                        if (D._nextValid[buffer] === undefined) {
                                 outpBuffer();
-                        } else if (D.nextValid[buffer][code.charAt(i + 1)] !== undefined) {
+                        } else if (D._nextValid[buffer][code.charAt(i + 1)] !== undefined) {
                                 /* If this is set, then we know we should print this character out.
                                  * Good example is the native "do". We know do is do if the next char ends with 
                                  * space, newline or bracket. */
                                 outpBuffer();
-                        } else if (D.nextValid[buffer][code.charAt(i + 1) + code.charAt(i + 2)] !== undefined) {
+                        } else if (D._nextValid[buffer][code.charAt(i + 1) + code.charAt(i + 2)] !== undefined) {
                                 /* It serves the same purpose as above but we now check two characters ahead.
                                  * 
                                  * I don't think this part is necessary, but my rational mind failed
                                  * to prove why it is not needed so my "gut" made the decision for me... */
                                 outpBuffer();
                         }
-                // Should we ignore this part or not?
-                } else if (end_token === false && D[_char] !== undefined) {
+                // Should we _ignore this part or not?
+                } else if (end_token === false && D[charcter] !== undefined) {
                         /* Do we need to check the buffer before we output the
                          * char/characters? */
-                        if (D.ignore[_char] === undefined) {
+                        if (D._ignore[charcter] === undefined) {
                                 // No
                                 outpChar();
                         } else {
@@ -302,12 +323,15 @@ Docm.parse.code = function (type, code) {
                                 /*** Regexp seems to be the only valid solution
                                  *** to check the buffer dynamically from the 
                                  *** JSON file. (Hei, I tried my best...) ***/
-                                if (cache[D.ignore[_char]] === undefined) {
+                                if (cache[D._ignore[charcter]] === undefined) {
                                         /* Cache regular expression and output
                                          * char/characters */
-                                        cache[D.ignore[_char]] = new RegExp(D.ignore[_char], 'i');
-                                        outpChar();
-                                } else if (!(cache[D.ignore[_char]].test(buffer))) {
+                                        cache[D._ignore[charcter]] = new RegExp(D._ignore[charcter], 'i');
+                                        if (!(cache[D._ignore[charcter]].test(buffer))) {
+                                                /* Output char/characters */
+                                                outpChar();
+                                        }
+                                } else if (!(cache[D._ignore[charcter]].test(buffer))) {
                                         /* Output char/characters */
                                         outpChar();
                                 }
