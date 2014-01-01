@@ -1,0 +1,113 @@
+{
+
+        
+        "-="  : ["operator"],
+        "+="  : ["operator"],
+        "++"  : ["operator"],
+        "--"  : ["operator"],
+
+        "&&"  : ["logic"],
+        "||"  : ["logic"],
+        "&"   : ["logic"],
+        "|"   : ["logic"],
+        "===" : ["logic"],
+        "=="  : ["logic"],
+        "!==" : ["logic"],
+        "!="  : ["logic"],
+        "<"   : ["logic"],
+        ">"   : ["logic"],
+        "<="  : ["logic"],
+        ">="  : ["logic"],
+
+        "+"   : ["math"],
+        "-"   : ["math"],
+        "*"   : ["math"],
+        "/"   : ["math"],
+        "%"   : ["math"],
+        "="   : ["math"],
+
+        "function"   : ["native"],
+        "return"     : ["native"],
+        "if"         : ["native"],
+        "else"       : ["native"],
+        "switch"     : ["native"],
+        "case"       : ["native"],
+        "break"      : ["native"],
+        "default"    : ["native"],
+        "for"        : ["native"],
+        "while"      : ["native"],
+        "do"         : ["native"],
+        "typeof"     : ["native"],
+        "var"        : ["native"],
+        "typeof"     : ["native"],
+        "instanceof" : ["native"],
+        "void"       : ["native"],
+        "null"       : ["native"],
+        "throw"      : ["native"],
+        "Error"      : ["native"],
+        "new"        : ["native"],
+        "in"         : ["native"],
+        "this"       : ["native"],
+        "delete"     : ["native"],
+        "true"       : ["native"],
+        "false"      : ["native"],
+        "try"        : ["native"],
+        "catch"      : ["native"],
+        "finally"    : ["native"],
+        "with"       : ["native"],
+        "debugger"   : ["native"],
+        
+        "{"  : ["structure"],
+        "}"  : ["structure"],
+        "("  : ["structure"],
+        ")"  : ["structure"],
+        "["  : ["structure"],
+        "]"  : ["structure"],
+        ";"  : ["structure"],
+        ":"  : ["structure"],
+        ","  : ["structure"],
+        "."  : ["structure"],
+        "->" : ["structure"],
+                
+        "//" : {
+                "end_token" : "\n",
+                "classes"   : ["comment"]
+        },
+        "/*" : {
+                "end_token" : "*/",
+                "classes"   : ["comment"]
+        },
+                
+        "\"" : {
+                "end_token" : "\"",
+                "classes"   : ["string"]
+        },
+        "'"  : {
+                "end_token" : "'",
+                "classes"   : ["string"]
+        },
+                
+        "$"  : {
+                "qend_token" : {" ":1,
+                                "=":1,
+                                ";":1,
+                                "(":1,
+                                ")":1,
+                                "{":1,
+                                "}":1,
+                                "[":1,
+                                "]":1,
+                                ".":1,
+                                ",":1,
+                                "+":1,
+                                "-":1,
+                                "/":1,
+                                "\\":1},
+                "classes"    : ["variable"]
+        },
+        
+        "nextInvalid": {
+                "do" : {" ":1, "{":1, "\n":1},
+                "in" : {" ":1, "\t":1}
+        }
+}

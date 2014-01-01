@@ -1,0 +1,138 @@
+{
+
+        
+        "-="  : ["operator"],
+        "+="  : ["operator"],
+        "++"  : ["operator"],
+        "--"  : ["operator"],
+
+        "&&"  : ["logic"],
+        "||"  : ["logic"],
+        "&"   : ["logic"],
+        "|"   : ["logic"],
+        "===" : ["logic"],
+        "=="  : ["logic"],
+        "!==" : ["logic"],
+        "!="  : ["logic"],
+        "!"   : ["logic"],
+        "<"   : ["logic"],
+        ">"   : ["logic"],
+        "<="  : ["logic"],
+        ">="  : ["logic"],
+
+        "+"   : ["math"],
+        "-"   : ["math"],
+        "*"   : ["math"],
+        "/"   : ["math"],
+        "%"   : ["math"],
+        "="   : ["math"],
+        
+        "1"    : ["int"],
+        "2"    : ["int"],
+        "3"    : ["int"],
+        "4"    : ["int"],
+        "5"    : ["int"],
+        "6"    : ["int"],
+        "7"    : ["int"],
+        "8"    : ["int"],
+        "9"    : ["int"],
+        "0"    : ["int"],
+
+        "function"   : ["native"],
+        "return"     : ["native"],
+        "if"         : ["native"],
+        "else"       : ["native"],
+        "switch"     : ["native"],
+        "case"       : ["native"],
+        "break"      : ["native"],
+        "default"    : ["native"],
+        "for"        : ["native"],
+        "while"      : ["native"],
+        "do"         : ["native"],
+        "typeof"     : ["native"],
+        "var"        : ["native"],
+        "typeof"     : ["native"],
+        "instanceof" : ["native"],
+        "void"       : ["native"],
+        "null"       : ["native"],
+        "throw"      : ["native"],
+        "Error"      : ["native"],
+        "new"        : ["native"],
+        "in"         : ["native"],
+        "this"       : ["native"],
+        "delete"     : ["native"],
+        "true"       : ["native"],
+        "false"      : ["native"],
+        "try"        : ["native"],
+        "catch"      : ["native"],
+        "finally"    : ["native"],
+        "with"       : ["native"],
+        "debugger"   : ["native"],
+        
+        "{" : ["structure"],
+        "}" : ["structure"],
+        "(" : ["structure"],
+        ")" : ["structure"],
+        "[" : ["structure"],
+        "]" : ["structure"],
+        ";" : ["structure"],
+        ":" : ["structure"],
+        "," : ["structure"],
+        "." : ["structure"],
+                
+        "//" : {
+                "end_token" : "\n",
+                "classes"   : ["comment"]
+        },
+        "/*" : {
+                "end_token" : "*/",
+                "classes"   : ["comment"]
+        },
+                
+        "\"" : {
+                "end_token" : "\"",
+                "classes"   : ["string"]
+        },
+        "'"  : {
+                "end_token" : "'",
+                "classes"   : ["string"]
+        },
+        
+        "document"          : ["dom_api"],
+        "window"            : ["dom_api"], 
+
+        "getElementById"    : ["dom_api obj"],
+        "getElementsByName" : ["dom_api obj"],
+
+        "innerHTML"         : ["dom_api", "attripute"],
+        
+        "console"          : ["firebug"],
+        "info"             : ["firebug attripute"],
+        "log"              : ["firebug attripute"],
+        "time"             : ["firebug attripute"],
+        "timeEnd"          : ["firebug attripute"],
+
+        "nextValid": {
+                "do"                : {" ":1, "{":1, "\n":1},
+                "document"          : {".":1, "\n":1},
+                "window"            : {".":1, "[":1, "\n":1},
+                "getElementById"    : {".":1, "[":1, "(":1, "\n":1},
+                "getElementsByName" : {".":1, "[":1, "(":1, "\n":1},
+                "innerHTML"         : {" ":1, ";":1, "=":1, "\n":1},
+                "in"                : {" ":1, "\t":1, "\n":1},
+                "time"              : {" ":1, "(":1, "\n":1}
+        },    
+        
+        "ignore": {
+                "1" : "^[a-zA-Z]",
+                "2" : "^[a-zA-Z]",
+                "3" : "^[a-zA-Z]",
+                "4" : "^[a-zA-Z]",
+                "5" : "^[a-zA-Z]",
+                "6" : "^[a-zA-Z]",
+                "7" : "^[a-zA-Z]",
+                "8" : "^[a-zA-Z]",
+                "9" : "^[a-zA-Z]",
+                "0" : "^[a-zA-Z]"
+        }
+}

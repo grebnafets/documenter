@@ -1,0 +1,62 @@
+body
+{
+        font-family: "Courier New", Courier, monospace;
+}
+.operator
+{
+        color: yellow;
+}
+.logic
+{
+        color: #C58917;
+}
+.math
+{
+        color: red;
+}
+.native
+{
+        color: blue;
+}
+.structure
+{
+        color: #557755;
+}
+.comment
+{
+        color: darkgrey;
+}
+.string
+{
+        color: orange;
+}
+.int
+{
+        color: magenta;
+}
+.obj
+{
+        color: blueviolet;
+}
+.variable
+{
+        color: brown;
+}
+
+.dom_api
+{
+        color: purple;
+}
+.dom_api.attripute
+{
+        color: green;
+}
+
+.firebug
+{
+        color: red;
+}
+.firebug.attripute
+{
+        color: crimson;
+}

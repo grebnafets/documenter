@@ -1,0 +1,30 @@
+.operator {
+        color: black;
+}
+.math {
+        color: black;
+}
+.native {
+        color: blue;
+}
+.structure {
+        color: black;
+}
+.comment {
+        color: gray;
+}
+.string {
+        color: orange;
+}
+.dom_api {
+        color: purple;
+}
+.obj {
+        color: blueviolet;
+}
+.attripute {
+        color: green;
+}
+.variable {
+        color: brown;
+}
