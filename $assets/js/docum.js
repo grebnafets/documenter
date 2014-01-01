@@ -45,10 +45,13 @@
  * Comment alias:
  * BRN = BEFORE REFACTORING NOTICE!
  */
-
-if (DATA.documenter === undefined) {
-        throw new Error("JSON data is missing");
-}
+(function () {
+        var msg = "JSON data is missing. ";
+        msg    += "Hint: did you include the JSON file after the script?";
+        if (DATA.documenter === undefined) {
+                throw new Error(msg);
+        }
+}());
 var Docm         = {};
 Docm.parse       = {};
 Docm.Data        = DATA.documenter;
@@ -135,10 +138,13 @@ Docm.addSpan = function (D, val) {
  */
 Docm.parse.code = function (type, code) {
         'use strict';
-        if (Docm.appendSpan === undefined) {
+        if (Docm.prependSpan === undefined) {
                 throw new Error("Docm.appendSpan() is missing");
         }
         if (Docm.appendSpan === undefined) {
+                throw new Error("Docm.appendSpan() is missing");
+        }
+        if (Docm.addSpan === undefined) {
                 throw new Error("Docm.appendSpan() is missing");
         }
         var i, j, len,
@@ -150,6 +156,7 @@ Docm.parse.code = function (type, code) {
         D            = Docm.Data[type];
         /* .trim() in my mind is supposed to be standard to javascript api.
          * If it isn't then add to string prototype with this.replace(/^\s+/, ''); */
+        // Use String.replace(/^\s+/, ''); if you don't have String.rtrim()
         code         = code.rtrim();
         /* Store all data inside the buffer untill we know what kind of data
          * we are dealing with here. */
@@ -171,6 +178,22 @@ Docm.parse.code = function (type, code) {
         i            = 0;
         /* Regular expressions will be chaced */
         cache        = [];
+        function closeSpan (quick) {
+                if (quick) {
+                        output += buffer_old;
+                        output += Docm.appendSpan();
+                        i = i - 1;
+                        qend_token = false;
+                } else {
+                        output += buffer;
+                        output += Docm.appendSpan();
+                        end_token = false;
+                }
+                if (_char === '\n') {
+                        output += '<br />';
+                }
+                buffer     = '';
+        }
         function outpBuffer () {
                 var tmpOut;
                 tmpOut     = Docm.addSpan(D, buffer);
@@ -179,7 +202,7 @@ Docm.parse.code = function (type, code) {
                 qend_token = tmpOut.qend_token;
                 is_string  = tmpOut.is_string;
                 buffer     = '';
-        };
+        }
         function outpChar () {
                 var tmpOut;
                 // Handle character
@@ -207,7 +230,7 @@ Docm.parse.code = function (type, code) {
                 qend_token = tmpOut.qend_token;
                 is_string  = tmpOut.is_string;
                 buffer  = '';
-        };
+        }
         function escape () {
                 i          = i + 1;
                 _char      = code.charAt(i);
@@ -215,7 +238,7 @@ Docm.parse.code = function (type, code) {
                 buffer    += _char;
                 output    += buffer;
                 buffer     = '';
-        };
+        }
         // Iterate through the code once
         while (i < len) {
                 _char      = code.charAt(i);
@@ -233,8 +256,9 @@ Docm.parse.code = function (type, code) {
                                         html_comment = true;
                                 } else {
                                         /* We are inside a string.
-                                        * Replace \< for '&#60' */
+                                        * Replace \< for '#60' */
                                         buffer = buffer_old + '&#60;';
+                                        //                     ^ is #60
                                 }
                         }
                         break;
@@ -245,8 +269,9 @@ Docm.parse.code = function (type, code) {
                                         html_comment = false;
                                 } else {
                                         /* We are inside a string.
-                                         * Replace \> for '&#62' */
+                                         * Replace \> for '#62' */
                                         buffer = buffer_old + '&#62;';
+                                        //                     ^ is #62
                                 }
                         }
                         break;
@@ -254,19 +279,23 @@ Docm.parse.code = function (type, code) {
                         // Handle space
                         if (end_token === false && qend_token === false) {
                                 output += buffer_old + '&nbsp;';
+                                //                      ^ is nbsp
                                 buffer  = '';
                         } else {
                                 if (html_comment === false) {
                                         buffer = buffer_old + '&nbsp;';
+                                        //                     ^ is nbsp
                                 } else {
                                         /* We are inside a string.
                                          * We don't want &nbsp; in there */
                                         buffer = buffer_old + ' ';
+                                        //                     ^ is empty space
                                 }
                         }
                         break;
                 case '\t':
                         // Handle tap
+                        // Comment this out if you don't have String.repeat()
                         output += '&nbsp;'.repeat(8);
                         break;
                 case '\n':
@@ -282,46 +311,44 @@ Docm.parse.code = function (type, code) {
                 // Search for ending token
                 if (end_token !== false && buffer.indexOf(end_token) !== -1) {
                         // Append closin span
-                        output += buffer;
-                        output += Docm.appendSpan();
-                        if (_char === '\n') {
-                                output += '<br />';
-                        }
-                        buffer    = '';
-                        end_token = false;
+                        closeSpan(false);
                 } else if (qend_token !== false && qend_token[_char] !== undefined) {
-                        // Append closing span
-                        output += buffer_old;
-                        output += Docm.appendSpan();
-                        if (_char === '\n') {
-                                output += '<br />';
-                        }
-                        //Roll i back by one to evaluate that _char again.
-                        i          = i - 1;
-                        buffer     = '';
-                        qend_token = false;
-                // Check buffer, then character if ending token is not set
+                        closeSpan(true);
                 } else if (end_token === false && D[buffer] !== undefined && buffer.length > 1) {
                         // Handle buffer
                         if (D.nextValid[buffer] === undefined) {
                                 outpBuffer();
                         } else if (D.nextValid[buffer][code.charAt(i + 1)] !== undefined) {
-                                /* This will run if the next _char is not one of 
-                                 * these a special case characters */
+                                /* If this is set, then we know we should print this character out.
+                                 * Good example is the native "do". We know do is do if the next char ends with 
+                                 * space, newline or bracket. */
                                 outpBuffer();
                         } else if (D.nextValid[buffer][code.charAt(i + 1) + code.charAt(i + 2)] !== undefined) {
-                                /* This will run if the next two _char is not one of 
-                                 * these a special case characters */
+                                /* It serves the same purpose as above but we now check two characters ahead.
+                                 * 
+                                 * I don't think this part is necessary, but my rational mind failed
+                                 * to prove why it is not needed so my "gut" made the decision for me... */
                                 outpBuffer();
                         }
+                // Should we ignore this part or not?
                 } else if (end_token === false && D[_char] !== undefined) {
+                        /* Do we need to check the buffer before we output the
+                         * char/characters? */
                         if (D.ignore[_char] === undefined) {
+                                // No
                                 outpChar();
                         } else {
+                                // Yes
+                                /*** Regexp seems to be the only valid solution
+                                 *** to check the buffer dynamically from the 
+                                 *** JSON file. (Hei, I tried my best...) ***/
                                 if (cache[D.ignore[_char]] === undefined) {
+                                        /* Cache regular expression and output
+                                         * char/characters */
                                         cache[D.ignore[_char]] = new RegExp(D.ignore[_char], 'i');
                                         outpChar();
                                 } else if (!(cache[D.ignore[_char]].test(buffer))) {
+                                        /* Output char/characters */
                                         outpChar();
                                 }
                         }
