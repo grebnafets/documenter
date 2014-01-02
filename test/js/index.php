@@ -168,7 +168,7 @@ define('SHA1_PATH', '../sha1.js');
                         add_test('comment', '7f653566ebb1b511586c599c1f3cc0ee8534ee55');
                         add_test('string', '9aab9d8a2516a0c86bafbbc88ce4356a4882ba67');
                         add_test('dom_api', '5b32facbbdf1ebb12f54ffb8d0a030a3a3d11b6a');
-                        add_test('firebug', 'd2861465c3bdf59fb8ff05abf26e1f129bcef1fa');
+                        add_test('firebug', '6536c536073bb9c07d54dacacb50cd0d10920d47');
                 </script>
         </body>
 </html>
