@@ -2,17 +2,23 @@ body
 {
         font-family: "Courier New", Courier, monospace;
 }
-.operator
+.assignop
 {
-        color: yellow;
+        color: red;
 }
-.logic
+.bitwise
 {
-        color: #C58917;
+        color: green;
+}
+.arithmeop {
+        color: #6F4E37;
+}
+.logic {
+        color: #575;
 }
 .math
 {
-        color: red;
+        color: brown;
 }
 .native
 {
@@ -44,7 +50,7 @@ body
 }
 
 .ECMAstandard {
-        color: blue;
+        color: cadetblue;
 }
 
 .dom_api

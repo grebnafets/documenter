@@ -246,7 +246,9 @@ Docm.parse.code = function (type, code) {
                 i          = i + 1;
                 charcter   = code.charAt(i);
                 buffer_old = buffer;
-                save_buffer();
+                buffer    += charcter;
+                output    += buffer;
+                buffer     = '';
         }
         function save_buffer() {
                 output += buffer;
