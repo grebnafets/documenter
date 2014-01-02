@@ -14,6 +14,7 @@ define('SHA1_PATH', '../sha1.js');
                 <script type="text/javascript" src="<?php echo SHA1_PATH; ?>"></script>
         </head>
         <body id="artargi">
+                <div id='spacing_p'></div>
                 <div id='image_p'></div>
                 <div id='assignop_p'></div>
                 <div id='bitwise_p'></div>
@@ -32,8 +33,10 @@ define('SHA1_PATH', '../sha1.js');
                 <hr />
                 <hr />
                 <hr />
+                <div id="spacing"></div>
+                <div id="spacing_s"></div>
                 <br />
-                
+                <hr />
                 <div id="image"></div>
                 <div id="image_s"></div>
                 <hr />
@@ -77,6 +80,10 @@ define('SHA1_PATH', '../sha1.js');
                 <div id="firebug_s"></div>
                 
                 <!-- codes:start -->
+                <script id="spacing_c" type="text/code">
+                        <?php echo file_get_contents('spacing.js'); ?>
+                </script>
+                
                 <script id="image_c" type="text/code">
                         <?php echo file_get_contents('image.js'); ?>
                 </script>
@@ -156,6 +163,7 @@ define('SHA1_PATH', '../sha1.js');
                                         document.getElementById(name + '_p').innerHTML = "<span style='display:inline-block;width:200px;'>" + name + "</span><span style='display:inline-block;color:red;width:100px;'>| FAIL</span><hr />";
                                 }
                         }
+                        add_test('spacing', '24ad2e83e7ff244040697d95e0b2dbaddb5caccb');
                         add_test('image', '80c4c7e44b6e44d1dd46ed5de384e1ee42c6d60b');
                         add_test('assignop', '3550f8dee8d473a8fc88fadfc4f6bfadbe137db4');
                         add_test('bitwise', '49a7a53415ff0ec52d70c6e530b0275015cc0c37');
