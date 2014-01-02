@@ -147,8 +147,6 @@ Docm.parse.code = function (type, code) {
         qend_token   = false;
         html_comment = false;
         is_string    = false;
-        len          = code.length;
-        i            = 0;
         cache        = []; // cache regExp
         function closeSpan(quick_end_token) {
                 if (quick_end_token) {
@@ -177,26 +175,21 @@ Docm.parse.code = function (type, code) {
         }
         function addSpan_char() {
                 var tmpOut;
-                j = i;
+                j = i + 1;
                 // Check if neighbor characters are also valid
-                while (D[charcter] !== undefined) {
-                        if (j <= len) {
-                                j = j + 1;
-                                charcter = code.substring(i, j);
-                        } else {
+                while (D[charcter + code[j]] !== undefined) {
+                        if (j >= len) {
                                 break;
                         }
+                        charcter += code[j];
+                        j = j + 1;
                 }
-                // Remove extra caracter that makes charcter string invalid
-                j = j - 1;
-                charcter = code.substring(i, j);
-                // To correct the offset of ( i = i + 1 ) at the bottom
                 j = j - 1;
                 // Roll i forward to j.
                 i = j;
-                output    += buffer_old;
+                //output     = output.concat(buffer_old);
                 tmpOut     = Docm.addSpan(D, charcter);
-                output    += tmpOut.output;
+                output     = output + buffer_old + tmpOut.output;
                 end_token  = tmpOut.end_token;
                 qend_token = tmpOut.qend_token;
                 is_string  = tmpOut.is_string;
@@ -204,7 +197,7 @@ Docm.parse.code = function (type, code) {
         }
         function escape_next() {
                 i          = i + 1;
-                charcter   = code.charAt(i);
+                charcter   = code[i];
                 buffer_old = buffer;
                 buffer    += charcter;
                 output    += buffer;
@@ -226,9 +219,9 @@ Docm.parse.code = function (type, code) {
                 return D._nextValid[buffer][next_char] !== undefined;
         }
         // Iterate through the code once
-        while (i < len) {
-                charcter       = code.charAt(i);
-                next_char      = code.charAt(i + 1);
+        for (i = 0, len = code.length; i < len; i += 1) {
+                charcter       = code[i];
+                next_char      = code[i + 1];
                 buffer_old     = buffer;
                 buffer        += charcter;
                 if (is_string === false) {
@@ -353,7 +346,6 @@ Docm.parse.code = function (type, code) {
                                 }
                         }
                 }
-                i = i + 1;
         }
         return '<code>' + output + '</code>';
 };
