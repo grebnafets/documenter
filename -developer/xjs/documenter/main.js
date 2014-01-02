@@ -16,13 +16,21 @@ Data index is the token or sign that inticates time to prepend span.
 Sometimes, an ending token is needed to know when to close the open span tag.
  */
 
-/* JSON DEPENDENCY CHECK */
+/* DEPENDENCY CHECK */
 (function () {
         'use strict';
         var msg = "JSON data is missing. ";
         msg    += "Hint: did you include the JSON file after the script?";
         if (DATA.documenter === undefined) {
                 throw new Error(msg);
+        }
+        if (typeof String.prototype.repeat !== 'function'
+                        && typeof String.repeat !== 'function') {
+                throw new Error("String.repeat() prototype is missing");
+        }
+        if (typeof String.prototype.rtrim !== 'function'
+                        && typeof String.rtrim !== 'function') {
+                throw new Error("String.rtrim() prototype is missing");         
         }
 }());
 
@@ -111,29 +119,10 @@ Docm.addSpan = function (D, index) {
  *      type    : string     |    program type: "js", "php" and so on.
  *      code    : string     |    code text 
  * RETURN:
- *      obj :
- *              output : string | HTML parsed code text with span tags
+ *      output : string | HTML parsed code text with span tags
  */
 Docm.parse.code = function (type, code) {
-        'use strict';
-        /* DEPENDENCY CHECK */
-        if (Docm.prependSpan === undefined) {
-                throw new Error("Docm.prependSpan() is missing");
-        }
-        if (Docm.appendSpan === undefined) {
-                throw new Error("Docm.appendSpan() is missing");
-        }
-        if (Docm.addSpan === undefined) {
-                throw new Error("Docm.addSpan() is missing");
-        }
-        if (typeof String.prototype.repeat !== 'function'
-                        && typeof String.repeat !== 'function') {
-                throw new Error("String.repeat() prototype is missing");
-        }
-        if (typeof String.prototype.rtrim !== 'function'
-                        && typeof String.rtrim !== 'function') {
-                throw new Error("String.rtrim() prototype is missing");         
-        }
+        'use strict';       
         var i, j, len,
                 charcter, next_char, buffer, buffer_old, cache,
                 end_token, qend_token, html_comment, is_string,
