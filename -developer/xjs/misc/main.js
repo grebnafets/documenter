@@ -29,7 +29,7 @@
 
 (function makeString_rtrim_Global() {
         'use strict';
-        if (typeof String.prototype.rtrim !== 'function' || typeof String.trim !== 'function') {
+        if (typeof String.prototype.rtrim !== 'function' || typeof String.rtrim !== 'function') {
                 String.prototype.rtrim = function () {
                         return this.replace(/^\s+/, '');
                 };
