@@ -174,20 +174,21 @@ Docm.parse.code = function (type, code) {
                 buffer     = '';
         }
         function addSpan_char() {
-                var tmpOut;
+                var tmpOut, nextChar;
                 j = i + 1;
+                nextChar = code[j];
                 // Check if neighbor characters are also valid
-                while (D[charcter + code[j]] !== undefined) {
-                        if (j >= len) {
-                                break;
-                        }
+                while (nextChar !== ' '
+                                && nextChar !== '\n'
+                                && nextChar !== ''
+                                && D[charcter + nextChar] !== undefined) {
                         charcter += code[j];
-                        j = j + 1;
+                        j         = j + 1;
+                        nextChar  = code[j];
                 }
                 j = j - 1;
                 // Roll i forward to j.
                 i = j;
-                //output     = output.concat(buffer_old);
                 tmpOut     = Docm.addSpan(D, charcter);
                 output     = output + buffer_old + tmpOut.output;
                 end_token  = tmpOut.end_token;
@@ -301,7 +302,6 @@ Docm.parse.code = function (type, code) {
                 // Search for ending token
                 if (end_token !== false
                                 && buffer.indexOf(end_token) !== -1) {
-                        // Append closin span
                         closeSpan(false);
                 } else if (qend_token !== false
                                 && qend_token[charcter] !== undefined) {
