@@ -358,6 +358,7 @@ Docm.parse.code = function (type, code) {
         return '<code>' + output + '</code>';
 };
 
+
 var Str = document.getElementById('scriptid').innerHTML;
 console.info('Code length is: ' + Str.trim().length);
 
