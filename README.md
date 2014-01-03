@@ -9,7 +9,7 @@ It currently understands the following:
 What it does:
 ==========
 
-  Purpose of documenter is to help document your program in HTML.
+  Documents your program in HTML, displays images within img tags within the comment section in your code.
 
 Why I wrote this documenter:  
 ==========
