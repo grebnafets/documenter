@@ -1,7 +1,8 @@
 /*jslint browser: true, indent: 8, nomen: true */
 /*global DATA, console */
 
-/* ATTENTION!
+/* 
+ * ATTENTION!
  * This is not your typical API documentation.
  * This is a prototype code documentation for maintainers.
  */
@@ -34,12 +35,15 @@ Sometimes, an ending token is needed to know when to close the open span tag.
         }
 }());
 
-/* DOCUMENTER GLOBAL NAMESPACE: Docm */
+/* 
+ * DOCUMENTER GLOBAL NAMESPACE: Docm 
+ */
 var Docm   = {};
 Docm.parse = {};
 Docm.Data  = DATA.documenter; //JSON DATA
 
-/* FUNCTION Docm.prependSpan
+/* 
+ * FUNCTION Docm.prependSpan
  * PARAMS: 
  *      data: obj | DATA.documenter.{program type}.{index}
  * RETURN:
@@ -57,7 +61,8 @@ Docm.prependSpan = function (data) {
         return span_start;
 };
 
-/* FUNCTION Docm.prependSpan
+/* 
+ * FUNCTION Docm.prependSpan
  * PARAM:
  *      no params
  * RETURN:
@@ -70,7 +75,8 @@ Docm.appendSpan = function () {
         return span_end;
 };
 
-/* FUNCTION Docm.addSpan
+/* 
+ * FUNCTION Docm.addSpan
  * PARAM:
  *      D     : obj        |    DATA.documenter.{program type}
  *      index : string     |    index for DATA.documenter.{program type}  
@@ -114,7 +120,8 @@ Docm.addSpan = function (D, index) {
         };
 };
 
-/* FUNCTION Docm.parse.code
+/* 
+ * FUNCTION Docm.parse.code
  * PARAM:
  *      type    : string     |    program type: "js", "php" and so on.
  *      code    : string     |    code text 
@@ -136,7 +143,7 @@ Docm.parse.code = function (type, code) {
         qend_token   = false;
         html_comment = false;
         is_string    = false;
-        cache        = []; // cache regExp
+        cache        = []; // Cache regExps
         function closeSpan(quick_end_token) {
                 if (quick_end_token) {
                         output    += buffer_old;
@@ -166,7 +173,9 @@ Docm.parse.code = function (type, code) {
                 var tmpOut, nextChar;
                 j = i + 1;
                 nextChar = code[j];
-                // Check if neighbor characters are also valid
+                /* 
+                 * See if next neighbor characters are also valid
+                 */
                 while (nextChar !== ' '
                                 && nextChar !== '\n'
                                 && nextChar !== ''
@@ -176,7 +185,10 @@ Docm.parse.code = function (type, code) {
                         nextChar  = code[j];
                 }
                 j = j - 1;
-                // Roll i forward to j.
+                /*
+                 * Roll i forward to j in case "character" contains more
+                 * characters.
+                 */
                 i = j;
                 tmpOut     = Docm.addSpan(D, charcter);
                 output     = output + buffer_old + tmpOut.output;
@@ -208,13 +220,12 @@ Docm.parse.code = function (type, code) {
         function appropriateNextChar() {
                 return D._nextValid[buffer][next_char] !== undefined;
         }
-        // Iterate through the code once
         for (i = 0, len = code.length; i < len; i += 1) {
                 charcter       = code[i];
                 next_char      = code[i + 1];
                 buffer_old     = buffer;
                 buffer        += charcter;
-                if (is_string === false) {
+                if (is_string === false && buffer.length > 6) {
                         switch (buffer) {
                         case '_nextValid':
                                 save_buffer();
@@ -226,37 +237,37 @@ Docm.parse.code = function (type, code) {
                 }
                 switch (charcter) {
                 case '\\':
-                        // Escape
                         escape_next();
                         break;
                 case '<':
-                        // Html comment start
                         if ((end_token !== false || qend_token !== false)) {
                                 if (is_string === false) {
                                         html_comment = true;
                                 } else {
-                                        /* We are inside a string.
-                                        * Replace \< for '#60' */
+                                        /* 
+                                         * We are inside a string.
+                                         * Replace \< for '#60' 
+                                         */
                                         buffer = buffer_old + '&#60;';
                                         //                     ^ is #60
                                 }
                         }
                         break;
                 case '>':
-                        // Html comment end
                         if ((end_token !== false || qend_token !== false)) {
                                 if (is_string === false) {
                                         html_comment = false;
                                 } else {
-                                        /* We are inside a string.
-                                         * Replace \> for '#62' */
+                                        /* 
+                                         * We are inside a string.
+                                         * Replace \> for '#62' 
+                                         */
                                         buffer = buffer_old + '&#62;';
                                         //                     ^ is #62
                                 }
                         }
                         break;
                 case ' ':
-                        // Handle space
                         if (end_token === false && qend_token === false) {
                                 output += buffer_old + '&nbsp;';
                                 //                      ^ is nbsp
@@ -266,71 +277,88 @@ Docm.parse.code = function (type, code) {
                                         buffer = buffer_old + '&nbsp;';
                                         //                     ^ is nbsp
                                 } else {
-                                        /* We are inside a string.
-                                         * We don't want &nbsp; in there */
+                                        /* 
+                                         * We are inside a string.
+                                         * We don't want &nbsp; in there.
+                                         */
                                         buffer = buffer_old + ' ';
                                         //                     ^ is empty space
                                 }
                         }
                         break;
                 case '\t':
-                        // Handle tap
-                        // Comment this out if you don't have String.repeat()
+                        /* 
+                         * Comment this out if you don't have String.repeat() 
+                         */
                         output += '&nbsp;'.repeat(8);
                         break;
                 case '\n':
-                        // Handle new line
-                        /* If end_token is set, then br will be 
-                         * appended later. */
+                        /* 
+                         * If end_token is "\n", then "\n" is index
+                         * to the closing span and we should ignore the "\n"
+                         * for now.
+                         */
                         if (end_token !== '\n') {
                                 output += buffer + '<br />';
                                 buffer = '';
                         }
                         break;
                 }
-                // Search for ending token
-                if (end_token !== false
-                                && buffer.indexOf(end_token) !== -1) {
-                        closeSpan(false);
-                } else if (qend_token !== false
-                                && qend_token[charcter] !== undefined) {
-                        closeSpan(true);
-                } else if (end_token === false
-                                && D[buffer] !== undefined
-                                && buffer.length > 1) {
-                        // Handle buffer
+                /*
+                 * if endtoken is found:
+                 *      if endtoken if found in buffer:
+                 *              close span;
+                 * else if qendtoken is found:
+                 *      if character is index in qendtoken:
+                 *              close span;
+                 * 
+                 * else if neither endtoken nor qendtoken is set:
+                 *      if 
+                 *      buffer contains more then one character
+                 *      AND
+                 *      if buffer is index in JSON DATA:
+                 *              add span if buffer is sensible;
+                 *
+                 *      else if character is index of JSON DATA:
+                 *              add span if char is sensible;
+                 */
+                
+                if (end_token !== false) {
+                        if (buffer.indexOf(end_token) !== -1) {
+                                closeSpan(false);
+                        }
+                } else if (qend_token !== false) {
+                        if (qend_token[charcter] !== undefined) {
+                                closeSpan(true);
+                        }
+                } else if (D[buffer] !== undefined && buffer.length > 1) {
                         if (D._nextValid[buffer] === undefined) {
                                 addSpan_buffer();
                         } else if (appropriateNextChar()) {
-                                /* If this is set, then we know we should print
-                                 * this character out.
-                                 * Good example is the native "do". 
-                                 * We know do is do if the next char ends with 
-                                 * space, newline or bracket. */
+                                /* 
+                                 * If the next character is appropriate,
+                                 * then we know we should print this character
+                                 * out. Good example is the native "do". 
+                                 * We know "do" is "do" if the next char
+                                 * ends with space, newline or bracket.
+                                 */
                                 addSpan_buffer();
                         }
-                // Should we _ignore this part or not?
-                } else if (end_token === false && D[charcter] !== undefined) {
-                        /* Do we need to check the buffer before we output the
-                         * char/characters? */
+                } else if (D[charcter] !== undefined) {
                         if (D._ignore[charcter] === undefined) {
-                                // No
                                 addSpan_char();
                         } else {
-                                // Yes
-                                /*** Regexp seems to be the only valid solution
-                                 *** to check the buffer dynamically from the 
-                                 *** JSON file. (Hei, I tried my best...) ***/
+                                /*
+                                 * We need to check the buffer to understand
+                                 * the context of the character before we add
+                                 * any span to the output.
+                                 */
                                 if (cache[D._ignore[charcter]] === undefined) {
-                                        /* Cache regular expression and output
-                                         * char/characters */
                                         cacheRegEx();
                                         if (!testBuffer()) {
-                                                /* Output char/characters */
                                                 addSpan_char();
                                         }
                                 } else if (!testBuffer()) {
-                                        /* Output char/characters */
                                         addSpan_char();
                                 }
                         }
