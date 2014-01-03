@@ -1,8 +1,4 @@
-<?php 
-/*
-        This is a demo file.
-*/
-?>
+<?php /* DEMO */ ?>
 <!DOCTYPE html>
 <html>
         <head>
