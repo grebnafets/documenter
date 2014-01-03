@@ -1,4 +1,3 @@
-<?php /* DEMO */ ?>
 <!DOCTYPE html>
 <html>
         <head>
