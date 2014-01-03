@@ -3,7 +3,8 @@ documenter
 ==========
 
 It currently understands the following:
-  1) Javascript.
+- [x] Javascript
+- [ ] PHP
   
 ==========
 
