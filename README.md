@@ -14,7 +14,7 @@ What it does:
 How to use it: 
 ==========
 
-  Take a look at docm.php
+  Take a look at docm.php for now. It is a demo file.
 
 Why I wrote the "documenter":  
 ==========
