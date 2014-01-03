@@ -348,9 +348,14 @@ Docm.parse.code = function (type, code) {
                                 /*
                                  * We need to check the buffer to understand
                                  * the context of the character before we add
-                                 * any span to the output.
+                                 * any span to the output. We use regular
+                                 * expression from JSON DATA to achive this
+                                 * goal.
                                  */
                                 if (cache[D._ignore[charcter]] === undefined) {
+                                        /*
+                                         * Cache the regular expression.
+                                         */
                                         cacheRegEx();
                                         if (!testBuffer()) {
                                                 addSpan_char();
