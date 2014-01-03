@@ -1,4 +1,4 @@
-("documenter" is the codename for the project, but I don't really have any name for it.)
+("documenter" is the codename for the project, but it hasn't been named yet.)
 documenter
 ==========
 
