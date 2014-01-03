@@ -28,7 +28,7 @@ Why I wrote the "documenter":
   your code.
   <br />
   <span style="display:inline-block;width:10px;"></span>
-  <span style="font-size:9px;">*(I'm not saying it has only one flaw, only one flaw by design)</span>
+  <span style="font-size:7px;">*(I'm not saying it has only one flaw, only one flaw by design)</span>
 
 If you want to use it:
 ==========
