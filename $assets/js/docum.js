@@ -342,10 +342,10 @@ Docm.parse.code = function (type, code) {
                         break;
                 }
                 /*
-                 * if endtoken is found:
+                 * if endtoken is set:
                  *      if endtoken if found in buffer:
                  *              close span;
-                 * else if qendtoken is found:
+                 * else if qendtoken is set:
                  *      if character is index in qendtoken:
                  *              close span;
                  * 
