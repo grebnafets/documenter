@@ -51,9 +51,7 @@ ob_start();
         <body id="artargi">
                 <div id="document"></div>
                 <script id="scriptid" type="text/document">
-                        /*
-                                include your file here
-                        */
+                        <!-- include your javascript file here -->  
                 </script>
                 
                 <script type="text/javascript">
@@ -78,7 +76,7 @@ ob_start();
 </html>
 <?php
 $html = ob_get_clean();
-if (file_put_contents('xjs/documenter/docm.php', $html)) {
+if (file_put_contents('../docm.php', $html)) {
         echo 'documenter docm.php write success';
 } else {
         echo 'could not write docm.php documenter';
