@@ -43,7 +43,7 @@ If you want to help develop it:
 ==========
 
   You are more then welcome to.
-  Check the -developer folder, make changes and then run the makefile.php with the querystring "?s=documenter&a=docu
+  Check the -developer folder, make changes and then run the makefile.php with the querystring "?s=documenter&a=docu"
   Just make sure the permissions are right.
   
   You can contact me via email: stefan.berg85@gmail.com
