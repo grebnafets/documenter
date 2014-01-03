@@ -27,8 +27,8 @@ Why I wrote the "documenter":
   This flaw allows you to put "\<img src="pathtoimage" /\>" within the commment section while parsing the rest of
   your code.
   <br />
-  <span style="display:inline-block;width:10px;"></span>
-  <span style="font-size:7px;">*(I'm not saying it has only one flaw, only one flaw by design)</span>
+  <span style="display:inline-block!important;width:10px!important;"></span>
+  <span style="font-size:7px!important;">*(I'm not saying it has only one flaw, only one flaw by design)</span>
 
 If you want to use it:
 ==========
