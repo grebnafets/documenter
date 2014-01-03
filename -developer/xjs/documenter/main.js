@@ -333,11 +333,11 @@ Docm.parse.code = function (type, code) {
                                 addSpan_buffer();
                         } else if (appropriateNextChar()) {
                                 /* 
-                                 * If the next character is appropriate,
-                                 * then we know we should print this character
-                                 * out. Good example is the native "do". 
-                                 * We know "do" is "do" if the next char
-                                 * ends with space, newline or bracket.
+                                 * If next character is appropriate, then we
+                                 * know we should print this character out.
+                                 * Lets consider "do" for example:
+                                 *      We know "do" is "do" if the next char
+                                 *      ends with space, newline or bracket.
                                  */
                                 addSpan_buffer();
                         }
