@@ -14,10 +14,10 @@ What it does:
 Why I wrote the "documenter":  
 ==========
 
-  I wrote it to help document my own code which I will later release under GNUv2.
+  I wrote it to help document my own code, which I will later release under GNUv2.
 
-  I wanted to have the ability to put images in the comment section and to take advantage of
-  HTML parser within the browser.
+  I wanted the ability to display images within the comment section, thus taking advantage of the
+  HTML parser within browsers.
 
   It takes JSON file as input in order to understand how to parse the code.
   It will then add span tags with class names to the code, using the JSON file as reference.
