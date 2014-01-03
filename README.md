@@ -17,18 +17,17 @@ Why I wrote the "documenter":
   To help document my own code, which I will later release under GNUv2.
 
   I wanted the ability to display images within the comment section, thus taking advantage of the
-  HTML parser within browsers.
-  <br />
+  HTML parser within browsers.  
+
   It takes JSON file as input in order to understand how to parse the code.
-  It will then add span tags with class names to the code, using the JSON file as reference.
-  <br />
+  It will then add span tags with class names to the code, using the JSON file as reference.  
+
   It has one flaw by design*, it can't parse through
   HTML or XML structured data.
   This flaw allows you to put "\<img src="pathtoimage" /\>" within the commment section while parsing the rest of
-  your code.
-  <br />
-  <span style="display:inline-block!important;width:10px!important;"></span>
-  <span style="font-size:7px!important;">*(I'm not saying it has only one flaw, only one flaw by design)</span>
+  your code.  
+  
+  *(I'm not saying it has only one flaw, only one flaw by design)
 
 If you want to use it:
 ==========
