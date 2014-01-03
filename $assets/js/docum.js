@@ -71,7 +71,7 @@ Sometimes, an ending token is needed to know when to close the open span tag.
         }
         if (typeof String.prototype.rtrim !== 'function'
                         && typeof String.rtrim !== 'function') {
-                throw new Error("String.rtrim() prototype is missing");         
+                throw new Error("String.rtrim() prototype is missing");
         }
 }());
 
@@ -327,9 +327,6 @@ Docm.parse.code = function (type, code) {
                         }
                         break;
                 case '\t':
-                        /* 
-                         * Comment this out if you don't have String.repeat() 
-                         */
                         output += '&nbsp;'.repeat(8);
                         break;
                 case '\n':
