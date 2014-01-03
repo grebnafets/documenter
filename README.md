@@ -11,7 +11,7 @@ What it does:
 
   Documents your program in HTML, displays images within img tags within the comment section in your code.
 
-Why I wrote this documenter:  
+Why I wrote the "documenter":  
 ==========
 
   I wrote it to help document my own code which I will later release under GNUv2.
