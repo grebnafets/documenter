@@ -1,3 +1,8 @@
+<?php 
+/*
+        This is a demo file.
+*/
+?>
 <!DOCTYPE html>
 <html>
         <head>
@@ -11,7 +16,7 @@
         <body id="artargi">
                 <div id="document"></div>
                 <script id="scriptid" type="text/document">
-                        <!-- echo file_get_contents("yourjavascript_file"); -->  
+                        <!-- echo file_get_contents("yourjavascript_file.js"); -->  
                 </script>
                 
                 <script type="text/javascript">
