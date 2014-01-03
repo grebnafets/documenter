@@ -200,7 +200,7 @@ Docm.parse.code = function (type, code) {
                 buffer     = '';
         }
         function save_buffer() {
-                output += buffer;
+                output  += buffer;
                 buffer   = '';
                 charcter = '';
         }
