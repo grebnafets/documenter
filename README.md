@@ -25,8 +25,7 @@ Why I wrote the "documenter":
   It has one flaw by design*, it can't parse through
   HTML or XML structured data.
   This flaw allows you to put "\<img src="pathtoimage" /\>" within the commment section while parsing the rest of
-  your code.  
-  
+  your code.
   <sub>*(I'm not saying it has only one flaw, only one flaw by design)</sub>
 
 If you want to use it:
