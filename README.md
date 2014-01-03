@@ -1,4 +1,5 @@
-documenter ("documenter" is the codename for the project, but I don't really have any name for this.)
+documenter
+("documenter" is the codename for the project, but I don't really have any name for this.)
 ==========
 
 It currently understands the following:
