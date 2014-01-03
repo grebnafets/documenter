@@ -18,15 +18,17 @@ Why I wrote the "documenter":
 
   I wanted the ability to display images within the comment section, thus taking advantage of the
   HTML parser within browsers.
-
+  <br />
   It takes JSON file as input in order to understand how to parse the code.
   It will then add span tags with class names to the code, using the JSON file as reference.
-
+  <br />
   It has one flaw by design*, it can't parse through
   HTML or XML structured data.
-  This flaw allows you to put \<img src="pathtoimage" /\> within the commment section while parsing the rest of
+  This flaw allows you to put "\<img src="pathtoimage" /\>" within the commment section while parsing the rest of
   your code.
-      *(I'm not saying it has only one flaw, only one flaw by design)
+  <br />
+  <span style="display:inline-block;width:10px;"></span>
+  <span style="font-size:9px;">*(I'm not saying it has only one flaw, only one flaw by design)</span>
 
 If you want to use it:
 ==========
