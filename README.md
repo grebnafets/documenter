@@ -27,7 +27,6 @@ Why I wrote the "documenter":
   This flaw allows you to put "\<img src="pathtoimage" /\>" within the commment section while parsing the rest of
   your code.  
   
-  ==========
   <sub>*(I'm not saying it has only one flaw, only one flaw by design)</sub>
 
 If you want to use it:
