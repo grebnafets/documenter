@@ -28,8 +28,8 @@ Why I wrote this documenter:
 If you want to use it:
 ==========
 
-  It is currently unstable and has only been tested in one browser.
-  Feel free to let me know if you find bugs but not responsible for any bugs you may find.
+  It is currently unstable and has only been tested in one browser. Not recomended for commercial use.
+  Feel free to let me know if you find any bugs but I am not responsible for any bugs you may find.
   It is a free program under GNUv2 licence, I will fix the bug if I find the time and mood to spare.
   
 If you want to help develop it:
