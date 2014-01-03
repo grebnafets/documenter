@@ -10,6 +10,11 @@ What it does:
 ==========
 
   Documents your program in HTML, displays images within img tags within the comment section in your code.
+ 
+How to use it: 
+==========
+
+  Take a look at docm.php
 
 Why I wrote the "documenter":  
 ==========
