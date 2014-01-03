@@ -2,12 +2,6 @@
 /*global DATA, console */
 
 /* 
- * ATTENTION!
- * This is not your typical API documentation.
- * This is a prototype code documentation for maintainers.
- */
-
-/* 
  * ABSTRACT IDEA
 <img style="border:1px solid black;" src="$assets/img/documenter/abstract.gif" />
  * JSON DATA SNAPSHOT
