@@ -33,4 +33,3 @@ offsetParent=hello();
 offsetTop=hello();
 offsetWidth=hello();
 style=hello();
-title=hello();

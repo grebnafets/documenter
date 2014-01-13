@@ -176,7 +176,6 @@
         "offsetTop"         : "dom_api attripute",
         "offsetWidth"       : "dom_api attripute",
         "style"             : "dom_api attripute",
-        "title"             : "dom_api attripute",
         
         "console"          : "firebug",
         "info"             : "firebug method",
@@ -192,6 +191,7 @@
                 "do"                : {" ":1, "{":1, "\n":1},
                 "var"               : {" ":1, "=":1, "\n":1},
                 "for"               : {" ":1, "(":1, "\n":1},
+                "new"               : {" ":1, "\t":1, "\n":1},
                 "document"          : {".":1, "\n":1},
                 "window"            : {".":1, "[":1, "\n":1},
                 "getElementById"    : {".":1, "[":1, "(":1, "\n":1},
