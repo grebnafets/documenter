@@ -11,7 +11,7 @@
         <body id="artargi">
                 <div id="document"></div>
                 <script id="scriptid" type="text/document">
-                        <!-- echo file_get_contents("yourjavascript_file.js"); -->  
+                        <!-- include your javascript file here -->  
                 </script>
                 
                 <script type="text/javascript">
