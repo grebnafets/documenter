@@ -43,9 +43,9 @@
 
 /* 
  * ABSTRACT IDEA
-<img style="border:1px solid black;" src="$assets/img/documenter/abstract.gif" />
+<img style="border:1px solid black;" src="_assets/img/documenter/abstract.gif" />
  * JSON DATA SNAPSHOT
-<img style="border:1px solid black;" src="$assets/img/documenter/JSON-snapshot.gif" />
+<img style="border:1px solid black;" src="_assets/img/documenter/JSON-snapshot.gif" />
 There can be more then one class name. Each class name is separated with space.
 Data index is the token or sign that inticates time to prepend span.
 Sometimes, an ending token is needed to know when to close the open span tag.

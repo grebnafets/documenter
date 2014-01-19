@@ -37,8 +37,8 @@ ob_start();
                 <style>
                         /* You might want to change your stylesheet.*/
                         <?php
-                        $bundle = '../$assets/css/' . $alias . '.css';
-                        $min    = '../$assets/css/' . $alias . '-min.css';
+                        $bundle = '../_assets/css/' . $alias . '.css';
+                        $min    = '../_assets/css/' . $alias . '-min.css';
                                 if (file_exists($min)) {
                                         echo file_get_contents($min);
                                 } else {
@@ -55,15 +55,15 @@ ob_start();
                 </script>
                 
                 <script type="text/javascript">
-                        var DATA = <?php echo file_get_contents('../$assets/json/' . $alias . '.json'); ?>;
+                        var DATA = <?php echo file_get_contents('../_assets/json/' . $alias . '.json'); ?>;
                 </script>
                 
-                <?php /*echo file_get_contents('../$assets/jst/' . $alias . '.jst');*/ ?>
+                <?php /*echo file_get_contents('../_assets/jst/' . $alias . '.jst');*/ ?>
                 
                 <script type="text/javascript">
                         <?php
-                        $bundle = '../$assets/js/' . $alias . '.js';
-                        $min    = '../$assets/js/' . $alias . '-min.js';
+                        $bundle = '../_assets/js/' . $alias . '.js';
+                        $min    = '../_assets/js/' . $alias . '-min.js';
                                 if (file_exists($min)) {
                                         echo file_get_contents($min);
                                 } else {

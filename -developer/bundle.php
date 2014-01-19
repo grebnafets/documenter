@@ -112,7 +112,7 @@ function bundle($type, $alias)
         if ($type === 'json')
                 ato_json ($contents);
         
-        if (file_put_contents("../\$assets/$type/$alias.$type", $contents)) {
+        if (file_put_contents("../_assets/$type/$alias.$type", $contents)) {
                 echo "$type/$alias.$type bundling success<br /><hr />";
         } else {
                 echo "$type/$alias.$type bundling fail<br /><hr />";

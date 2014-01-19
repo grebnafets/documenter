@@ -6,7 +6,7 @@ define('THIS', 'docum');
                 <title></title>
                 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
                 <style>
-                        <?php echo file_get_contents('$assets/css/' . THIS . '.css'); ?>
+                        <?php echo file_get_contents('_assets/css/' . THIS . '.css'); ?>
                 </style>
         </head>
         <body id="artargi">
@@ -16,13 +16,13 @@ define('THIS', 'docum');
                 </script>
                 
                 <script type="text/javascript">
-                        var DATA = <?php echo file_get_contents('$assets/json/' . THIS . '.json'); ?>;
+                        var DATA = <?php echo file_get_contents('_assets/json/' . THIS . '.json'); ?>;
                 </script>
                 
-                <?php echo file_get_contents('$assets/jst/' . THIS . '.jst'); ?>
+                <?php echo file_get_contents('_assets/jst/' . THIS . '.jst'); ?>
                 
                 <script type="text/javascript">
-                        <?php echo file_get_contents('$assets/js/' . THIS . '.js'); ?>
+                        <?php echo file_get_contents('_assets/js/' . THIS . '.js'); ?>
                 </script>
         </body>
 </html>
